@@ -1,0 +1,32 @@
+CREATE OR REPLACE PROCEDURE C AS
+BEGIN
+	INSERT INTO temp_table(num_col)
+	VALUES(7);
+EXCEPTION
+	WHEN OTHERS THEN
+		ErrorPkg.HandlerAll(FALSE);
+		RAISE;
+END C;
+/
+
+CREATE OR REPLACE PROCEDURE B AS
+BEGIN
+	C;
+EXCEPTION
+	WHEN OTHERS THEN
+		ErrorPkg.HandlerAll(FALSE);
+		RAISE;
+END B;
+/
+
+CREATE OR REPLACE PROCEDURE A AS
+ v_ErrorSeq NUMBER;
+BEGIN
+	B;
+EXCEPTION
+	WHEN OTHERS THEN
+		ErrorPkg.HandlerAll(TRUE);
+		ErrorPkg.StoreStacks('Error Test',v_ErrorSeq,TRUE);
+		ErrorPkg.PrintStacks('Error Test',v_ErrorSeq);
+END A;
+/

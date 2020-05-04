@@ -1,0 +1,6 @@
+CREATE OR REPLACE TRIGGER tg_insert_temp
+	BEFORE INSERT ON temp_table
+BEGIN
+	RAISE ZERO_DIVIDE;
+END tg_insert_temp;
+
