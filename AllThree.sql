@@ -9,3 +9,4 @@ EXCEPTION
 		INSERT INTO log_table(info)
 		VALUES('Student of id 1 does not exist');
 END;
+--testando git
